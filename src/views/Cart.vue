@@ -7,6 +7,10 @@
     </div>
 
     <div v-else>
+      <div class="mb-3">
+        <label for="address" class="form-label fw-semibold">Địa chỉ giao hàng</label>
+        <input v-model="address" id="address" type="text" class="form-control" placeholder="Nhập địa chỉ nhận hàng..." />
+      </div>
       <table class="table table-bordered align-middle">
         <thead class="table-light text-center">
           <tr>
@@ -58,7 +62,8 @@ export default {
   name: 'Cart',
   data() {
     return {
-      cart: []
+      cart: [],
+      address: ''
     }
   },
   computed: {
@@ -113,13 +118,18 @@ export default {
         alert('Giỏ hàng trống!')
         return
       }
+      if (!this.address.trim()) {
+        alert('Vui lòng nhập địa chỉ giao hàng!')
+        return
+      }
       const order = {
         id: Date.now(),
         items: this.cart,
         totalPrice: this.totalPrice,
         status: 'Đang xử lý',
         createdAt: new Date().toISOString(),
-        userEmail: user.email
+        userEmail: user.email,
+        address: this.address.trim()
       }
       let orders = JSON.parse(localStorage.getItem('orders')) || []
       orders.push(order)

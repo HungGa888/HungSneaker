@@ -92,14 +92,11 @@ export default {
         alert('🎉 Đăng nhập thành công!')
 
         const loggedInUser = {
-          email: this.form.email
+          email: this.form.email,
+          name: user ? user.name : 'Admin'
         }
 
-        if (this.form.remember) {
-          localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser))
-        } else {
-          sessionStorage.setItem('loggedInUser', JSON.stringify(loggedInUser))
-        }
+        localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser))
 
         this.$router.push('/')
       } else {
