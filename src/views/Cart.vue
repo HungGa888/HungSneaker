@@ -11,6 +11,14 @@
         <label for="address" class="form-label fw-semibold">Địa chỉ giao hàng</label>
         <input v-model="address" id="address" type="text" class="form-control" placeholder="Nhập địa chỉ nhận hàng..." />
       </div>
+      <div class="mb-3">
+        <label for="discountCode" class="form-label fw-semibold">Mã giảm giá</label>
+        <div class="input-group">
+          <input v-model="discountCode" id="discountCode" type="text" class="form-control" placeholder="Nhập mã giảm giá..." />
+          <button class="btn btn-outline-secondary" @click="applyDiscount">Áp dụng</button>
+        </div>
+        <div v-if="discountMessage" class="mt-2 text-success">{{ discountMessage }}</div>
+      </div>
       <table class="table table-bordered align-middle">
         <thead class="table-light text-center">
           <tr>
@@ -63,12 +71,16 @@ export default {
   data() {
     return {
       cart: [],
-      address: ''
+      address: '',
+      discountCode: '',
+      discountValue: 0,
+      discountMessage: ''
     }
   },
   computed: {
     totalPrice() {
-      return this.cart.reduce((sum, item) => sum + item.price * item.quantity, 0)
+      const total = this.cart.reduce((sum, item) => sum + item.price * item.quantity, 0)
+      return total - this.discountValue
     }
   },
   methods: {
@@ -126,6 +138,8 @@ export default {
         id: Date.now(),
         items: this.cart,
         totalPrice: this.totalPrice,
+        discountCode: this.discountCode.trim().toUpperCase(),
+        discountValue: this.discountValue,
         status: 'Đang xử lý',
         createdAt: new Date().toISOString(),
         userEmail: user.email,
@@ -141,6 +155,22 @@ export default {
     },
     goToOrderHistory() {
       this.$router.push('/order-history')
+    },
+    applyDiscount() {
+      // Ví dụ: mã giảm giá cố định
+      const codes = [
+        { code: 'GIAM10', value: 10000 },
+        { code: 'GIAM20', value: 20000 },
+        { code: 'FREESHIP', value: 15000 }
+      ]
+      const found = codes.find(c => c.code === this.discountCode.trim().toUpperCase())
+      if (found) {
+        this.discountValue = found.value
+        this.discountMessage = `Áp dụng thành công! Giảm ${found.value.toLocaleString()} đ.`
+      } else {
+        this.discountValue = 0
+        this.discountMessage = 'Mã giảm giá không hợp lệ.'
+      }
     }
   },
   mounted() {

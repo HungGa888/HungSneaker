@@ -51,12 +51,33 @@
           Khám phá giày mới nhất
         </router-link>
       </div>
+
+      <!-- Section sản phẩm nổi bật -->
+      <div class="row mt-5">
+        <h2 class="text-center mb-4 text-primary">Sản phẩm nổi bật</h2>
+        <div class="col-md-3 mb-4" v-for="product in featuredProducts" :key="product.id">
+          <div class="card h-100 shadow-sm">
+            <img :src="product.image" class="card-img-top" :alt="product.name" style="max-height:180px;object-fit:cover;">
+            <div class="card-body">
+              <h6 class="fw-bold">{{ product.name }}</h6>
+              <p class="text-danger mb-2">{{ product.price.toLocaleString() }} đ</p>
+              <router-link :to="`/product/${product.id}`" class="btn btn-outline-primary btn-sm" target="_blank">Xem chi tiết</router-link>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 </template>
 
 <script setup>
-// Không cần JS
+import { ref, onMounted } from 'vue'
+
+const featuredProducts = ref([])
+onMounted(() => {
+  const products = JSON.parse(localStorage.getItem('products')) || []
+  featuredProducts.value = products.slice(-4).reverse()
+})
 </script>
 
 <style scoped>
