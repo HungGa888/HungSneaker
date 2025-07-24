@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import CategoryManager from '../components/admin/CategoryManager.vue';
 import ProductManager from '../components/admin/ProductManager.vue';
+import AdminVoucher from './AdminVoucher.vue';
 
 </script>
 
@@ -26,6 +27,16 @@ import ProductManager from '../components/admin/ProductManager.vue';
           <h5 class="text-info mb-3">🛍️ Quản lý sản phẩm</h5>
           <div class="scroll-area">
             <ProductManager />
+          </div>
+        </div>
+      </div>
+
+      <!-- Khu vực quản lý voucher -->
+      <div class="col-md-12 mt-4">
+        <div class="admin-box border rounded p-3 bg-light">
+          <h5 class="text-warning mb-3">🎁 Quản lý mã giảm giá (Voucher)</h5>
+          <div class="scroll-area">
+            <AdminVoucher />
           </div>
         </div>
       </div>
