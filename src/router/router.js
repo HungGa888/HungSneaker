@@ -16,6 +16,7 @@ import Product from '../views/Product.vue'
 import ProductDetail from '../views/ProductDetail.vue'
 import Admin from '../views/Admin.vue' 
 import AdminOrderApproval from '../views/AdminOrderApproval.vue'
+import AdminRevenue from '../views/AdminRevenue.vue'
 const routes = [
   { path: '/', name: 'Home', component: Home },
   { path: '/login', name: 'Login', component: Login },
@@ -31,7 +32,8 @@ const routes = [
   { path: '/product/:id', name: 'ProductDetail', component: Product },
   { path: '/product/:id', name: 'ProductDetail', component: ProductDetail },
   { path: '/admin', name: 'Admin', component: Admin }, 
-{ path: '/admin/orders', name: 'AdminOrders', component: AdminOrderApproval },
+  { path: '/admin/orders', name: 'AdminOrders', component: AdminOrderApproval },
+  { path: '/admin/revenue', name: 'AdminRevenue', component: AdminRevenue },
   
   { path: '/:pathMatch(.*)*', redirect: '/' }
 ]
