@@ -43,14 +43,7 @@ import AdminRevenue from './AdminRevenue.vue';
       </div>
 
       <!-- Khu vực quản lý doanh thu -->
-      <div class="col-md-12 mt-4">
-        <div class="admin-box border rounded p-3 bg-light">
-          <h5 class="text-success mb-3">💰 Quản lý doanh thu</h5>
-          <div class="scroll-area">
-            <AdminRevenue />
-          </div>
-        </div>
-      </div>
+    
     </div>
   </div>
 </template>

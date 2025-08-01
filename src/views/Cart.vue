@@ -8,6 +8,14 @@
 
     <div v-else>
       <div class="mb-3">
+        <label for="receiverName" class="form-label fw-semibold">Tên người nhận</label>
+        <input v-model="receiverName" id="receiverName" type="text" class="form-control" placeholder="Nhập tên người nhận hàng..." />
+      </div>
+      <div class="mb-3">
+        <label for="receiverPhone" class="form-label fw-semibold">Số điện thoại người nhận</label>
+        <input v-model="receiverPhone" id="receiverPhone" type="tel" class="form-control" placeholder="Nhập số điện thoại người nhận..." />
+      </div>
+      <div class="mb-3">
         <label for="address" class="form-label fw-semibold">Địa chỉ giao hàng</label>
         <input v-model="address" id="address" type="text" class="form-control" placeholder="Nhập địa chỉ nhận hàng..." />
       </div>
@@ -71,6 +79,8 @@ export default {
   data() {
     return {
       cart: [],
+      receiverName: '',
+      receiverPhone: '',
       address: '',
       discountCode: '',
       discountValue: 0,
@@ -134,6 +144,20 @@ export default {
         alert('Vui lòng nhập địa chỉ giao hàng!')
         return
       }
+      if (!this.receiverName.trim()) {
+        alert('Vui lòng nhập tên người nhận!')
+        return
+      }
+      if (!this.receiverPhone.trim()) {
+        alert('Vui lòng nhập số điện thoại người nhận!')
+        return
+      }
+      // Kiểm tra định dạng số điện thoại (10-11 số, bắt đầu bằng 0)
+      const phoneRegex = /^0[0-9]{9,10}$/
+      if (!phoneRegex.test(this.receiverPhone.trim())) {
+        alert('Số điện thoại không hợp lệ! Vui lòng nhập số điện thoại 10-11 số bắt đầu bằng 0.')
+        return
+      }
       const order = {
         id: Date.now(),
         items: this.cart,
@@ -143,12 +167,19 @@ export default {
         status: 'Đang xử lý',
         createdAt: new Date().toISOString(),
         userEmail: user.email,
-        address: this.address.trim()
+        address: this.address.trim(),
+        receiverName: this.receiverName.trim(),
+        receiverPhone: this.receiverPhone.trim()
       }
       let orders = JSON.parse(localStorage.getItem('orders')) || []
       orders.push(order)
       localStorage.setItem('orders', JSON.stringify(orders))
       this.cart = []
+      this.address = ''
+      this.receiverName = ''
+      this.receiverPhone = ''
+      this.discountCode = ''
+      this.discountValue = 0
       this.saveCart()
       alert('✅ Thanh toán thành công!')
       this.$router.push('/order-history')
