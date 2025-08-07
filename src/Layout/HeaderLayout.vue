@@ -53,8 +53,8 @@
                   <li v-if="isAdmin">
                     <router-link to="/admin/orders" class="dropdown-item"> 📦 Duyệt đơn hàng </router-link>
                   </li>
-                  <li v-if="isAdmin">
-                    <router-link to="/admin/revenue" class="dropdown-item text-warning">
+                  <li v-if="isAdmin" style="color: black;">
+                    <router-link to="/admin/revenue" class="dropdown-item text-warning" >
                       💵 Báo cáo doanh thu
                     </router-link>
                   </li>
