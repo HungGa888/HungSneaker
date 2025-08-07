@@ -27,6 +27,13 @@
         </div>
       </div>
     </div>
+
+    <!-- Phần đánh giá sản phẩm -->
+    <div class="row mt-5">
+      <div class="col-12">
+        <ProductReviewList :productId="product.id" :productName="product.name" />
+      </div>
+    </div>
   </div>
 
   <div v-else class="text-center py-5">
@@ -39,6 +46,7 @@
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import emitter from '../eventBus'
+import ProductReviewList from '../components/ProductReviewList.vue'
 
 const route = useRoute()
 const product = ref(null)

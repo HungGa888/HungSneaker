@@ -49,11 +49,10 @@
                       🛠️ Quản trị
                     </router-link>
                   </li>
-                  
                   <li v-if="isAdmin">
                     <router-link to="/admin/orders" class="dropdown-item"> 📦 Duyệt đơn hàng </router-link>
                   </li>
-                  <li v-if="isAdmin" style="color: black;">
+                  <li v-if="isAdmin" class="black-text">
                     <router-link to="/admin/revenue" class="dropdown-item text-warning" >
                       💵 Báo cáo doanh thu
                     </router-link>
@@ -129,5 +128,8 @@ onMounted(() => {
 .badge {
   font-size: 0.8rem;
   padding: 4px 8px;
+}
+.black-text {
+  color: black;
 }
 </style>
