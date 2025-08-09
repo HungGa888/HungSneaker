@@ -17,6 +17,7 @@ import ProductDetail from '../views/ProductDetail.vue'
 import Admin from '../views/Admin.vue' 
 import AdminOrderApproval from '../views/AdminOrderApproval.vue'
 import AdminRevenue from '../views/AdminRevenue.vue'
+import SizeGuide from '../views/SizeGuide.vue'
 const routes = [
   { path: '/', name: 'Home', component: Home },
   { path: '/login', name: 'Login', component: Login },
@@ -34,6 +35,7 @@ const routes = [
   { path: '/admin', name: 'Admin', component: Admin }, 
   { path: '/admin/orders', name: 'AdminOrders', component: AdminOrderApproval },
   { path: '/admin/revenue', name: 'AdminRevenue', component: AdminRevenue },
+  { path: '/size-guide', name: 'SizeGuide', component: SizeGuide },
   
   { path: '/:pathMatch(.*)*', redirect: '/' }
 ]

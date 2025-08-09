@@ -28,6 +28,7 @@
           <img :src="p.image" class="card-img-top" style="height: 200px; object-fit: cover" />
           <div class="card-body">
             <h6>{{ p.name }}</h6>
+            <p class="text-secondary mb-1">Kích cỡ: <span>{{ Array.isArray(p.sizes) ? p.sizes.join(', ') : (p.sizes || 'Chưa cập nhật') }}</span></p>
             <p class="text-danger">{{ p.price.toLocaleString() }} đ</p>
             <div class="d-flex gap-2">
               <button class="btn btn-primary btn-sm" @click="addToCart(p)">Mua ngay</button>

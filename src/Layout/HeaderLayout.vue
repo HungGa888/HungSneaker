@@ -25,6 +25,7 @@
                 <li><router-link class="dropdown-item" to="/products?category=Giày Thể Thao">Giày Thể Thao</router-link></li>
                 <li><hr class="dropdown-divider" /></li>
                 <li><router-link class="dropdown-item" to="/discount">Khuyến mãi</router-link></li>
+                <li><router-link class="dropdown-item" to="/size-guide">Hướng dẫn chọn size</router-link></li>
               </ul>
             </div>
 

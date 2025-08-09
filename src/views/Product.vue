@@ -7,6 +7,7 @@
       <div class="col-md-6">
         <h2 class="fw-bold mb-2 text-primary">{{ product.name }}</h2>
         <p class="text-secondary mb-1"><i class="bi bi-tag"></i> Thể loại: <span class="fw-semibold">{{ product.category }}</span></p>
+        <p class="text-secondary mb-1"><i class="bi bi-rulers"></i> Kích cỡ: <span class="fw-semibold">{{ Array.isArray(product.sizes) ? product.sizes.join(', ') : (product.sizes || 'Chưa cập nhật') }}</span></p>
         <h3 class="text-danger mb-3">{{ product.price.toLocaleString() }} đ</h3>
         <div class="d-flex gap-3 mb-4">
           <button class="btn btn-lg btn-gradient-primary shadow" @click="addToCart">

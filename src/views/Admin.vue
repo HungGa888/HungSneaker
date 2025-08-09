@@ -13,9 +13,9 @@ import AdminReviewManager from './AdminReviewManager.vue';
   <div class="container mt-4">
     <h2 class="mb-4 text-primary text-center">Trang Quản Trị</h2>
 
-    <div class="row g-4">
+    <div class="row g-2">
       <!-- Bảng thể loại -->
-      <div class="col-md-4">
+      <div class="col-md-2">
         <div class="admin-box border rounded p-3 bg-light">
           <h5 class="text-success mb-3">🧩 Quản lý thể loại</h5>
           <div class="scroll-area">
@@ -25,7 +25,7 @@ import AdminReviewManager from './AdminReviewManager.vue';
       </div>
 
       <!-- Bảng sản phẩm -->
-      <div class="col-md-8">
+      <div class="col-md-10">
         <div class="admin-box border rounded p-3 bg-light">
           <h5 class="text-info mb-3">🛍️ Quản lý sản phẩm</h5>
           <div class="scroll-area">

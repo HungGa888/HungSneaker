@@ -7,10 +7,18 @@
       <div class="col-md-6">
         <h2 class="fw-bold mb-3">{{ product.name }}</h2>
         <p class="text-muted mb-1">Thể loại: <strong>{{ product.category }}</strong></p>
+        <p class="text-muted mb-1">Kích cỡ: <strong>{{ Array.isArray(product.sizes) ? product.sizes.join(', ') : (product.sizes || 'Chưa cập nhật') }}</strong></p>
         <p class="text-danger fs-4 mb-3">{{ product.price.toLocaleString() }} đ</p>
 
         <!-- Nút thao tác -->
-        <div class="d-flex gap-2 mb-4">
+        <div class="d-flex flex-column gap-2 mb-4">
+          <div v-if="Array.isArray(product.sizes) && product.sizes.length" class="mb-2">
+            <label for="sizeSelect" class="form-label fw-semibold">Chọn kích cỡ giày *</label>
+            <select v-model="selectedSize" id="sizeSelect" class="form-select" required>
+              <option value="" disabled>-- Chọn size --</option>
+              <option v-for="size in product.sizes" :key="size" :value="size">{{ size }}</option>
+            </select>
+          </div>
           <button class="btn btn-success" @click="addToCart">🛒 Mua ngay</button>
           <button class="btn" :class="isFavorite(product.id) ? 'btn-warning' : 'btn-outline-warning'" @click="toggleFavorite">
             <i class="bi" :class="isFavorite(product.id) ? 'bi-heart-fill' : 'bi-heart'" />
@@ -51,6 +59,7 @@ import ProductReviewList from '../components/ProductReviewList.vue'
 const route = useRoute()
 const product = ref(null)
 const favorites = ref(new Set())
+const selectedSize = ref('')
 
 // Load sản phẩm theo ID từ route
 function loadProduct() {
@@ -64,18 +73,21 @@ function loadProduct() {
 
 // Thêm vào giỏ hàng
 function addToCart() {
+  if (Array.isArray(product.value.sizes) && product.value.sizes.length && !selectedSize.value) {
+    alert('Vui lòng chọn kích cỡ giày trước khi thêm vào giỏ hàng!')
+    return
+  }
   const cart = JSON.parse(localStorage.getItem('cart')) || []
-  const existingItem = cart.find(i => i.id === product.value.id)
-
+  const existingItem = cart.find(i => i.id === product.value.id && i.size === selectedSize.value)
   if (existingItem) {
     existingItem.quantity++
   } else {
-    cart.push({ ...product.value, quantity: 1 })
+    cart.push({ ...product.value, quantity: 1, size: selectedSize.value })
   }
-
   localStorage.setItem('cart', JSON.stringify(cart))
   emitter.emit('cart-updated')
-  alert(`✅ Đã thêm "${product.value.name}" vào giỏ hàng!`)
+  alert(`✅ Đã thêm "${product.value.name}"${selectedSize.value ? ' (size ' + selectedSize.value + ')' : ''} vào giỏ hàng!`)
+  selectedSize.value = ''
 }
 
 // Thêm/xoá khỏi danh sách yêu thích
