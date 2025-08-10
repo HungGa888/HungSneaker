@@ -60,6 +60,7 @@
                 <label for="role" class="form-label">Vai trò *</label>
                 <select v-model="accountForm.role" class="form-select" id="role" required>
                   <option value="user">Người dùng</option>
+                  <option value="staff">Nhân viên</option>
                   <option value="admin">Quản trị viên</option>
                 </select>
               </div>
@@ -113,6 +114,7 @@
           <select v-model="filterRole" class="form-select" style="width: 150px;">
             <option value="">Tất cả vai trò</option>
             <option value="user">Người dùng</option>
+            <option value="staff">Nhân viên</option>
             <option value="admin">Quản trị viên</option>
           </select>
         </div>
@@ -139,8 +141,8 @@
                 <td>{{ account.fullName }}</td>
                 <td>{{ account.phone || 'Chưa cập nhật' }}</td>
                 <td>
-                  <span :class="account.role === 'admin' ? 'badge bg-danger' : 'badge bg-info'">
-                    {{ account.role === 'admin' ? 'Quản trị viên' : 'Người dùng' }}
+                  <span :class="account.role === 'admin' ? 'badge bg-danger' : account.role === 'staff' ? 'badge bg-warning' : 'badge bg-info'">
+                    {{ account.role === 'admin' ? 'Quản trị viên' : account.role === 'staff' ? 'Nhân viên' : 'Người dùng' }}
                   </span>
                 </td>
                 <td>
@@ -210,6 +212,14 @@
           </div>
         </div>
       </div>
+      <div class="col-md-3">
+        <div class="card text-center">
+          <div class="card-body">
+            <h5 class="card-title text-warning">{{ staffAccounts }}</h5>
+            <p class="card-text">Nhân viên</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -262,6 +272,9 @@ export default {
     },
     adminAccounts() {
       return this.accounts.filter(account => account.role === 'admin').length
+    },
+    staffAccounts() {
+      return this.accounts.filter(account => account.role === 'staff').length
     }
   },
   methods: {

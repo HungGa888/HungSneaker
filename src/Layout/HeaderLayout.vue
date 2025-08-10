@@ -45,15 +45,15 @@
               <ul class="dropdown-menu">
                 <template v-if="userEmail">
                   <li><router-link to="/change-password" class="dropdown-item"> Đổi mật khẩu </router-link></li>
-                  <li v-if="isAdmin">
+                  <li v-if="isAdmin || isStaff">
                     <router-link to="/admin" class="dropdown-item text-success">
                       🛠️ Quản trị
                     </router-link>
                   </li>
-                  <li v-if="isAdmin">
+                  <li v-if="isAdmin || isStaff">
                     <router-link to="/admin/orders" class="dropdown-item"> 📦 Duyệt đơn hàng </router-link>
                   </li>
-                  <li v-if="isAdmin" class="black-text">
+                  <li v-if="isAdmin || isStaff" class="black-text">
                     <router-link to="/admin/revenue" class="dropdown-item text-warning" >
                       💵 Báo cáo doanh thu
                     </router-link>
@@ -97,6 +97,10 @@ const store = useStore()
 
 const cartCount = computed(() => store.state.cartCount)
 const isAdmin = computed(() => userEmail.value === 'admin@gmail.com')
+const isStaff = computed(() => {
+  const user = JSON.parse(localStorage.getItem('loggedInUser')) || {};
+  return user.role === 'staff';
+})
 
 function getUserEmail() {
   const user =
